@@ -4,4 +4,12 @@
     <string name="Loginform">Login Form</string>
     <string name="password">Password</string>
     <string name="LOGIN">LOGIN</string>
+    <string name="choose_Sport">Choose your favourite sport</string>
+    <string name="Football">Football</string>
+    <string name="basketball">basketball</string>
+    <string name="Volleyball">Volleyball</string>
+    <string name="choose_Gender">choose your Gender</string>
+    <string name="Female">Female</string>
+    <string name="male">Male</string>
+
 </resources>
