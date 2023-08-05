@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">task1</string>
+    <string name="app_name" translatable="false">task1</string>
     <string name="User">UserName</string>
     <string name="Loginform">Login Form</string>
     <string name="password">Password</string>

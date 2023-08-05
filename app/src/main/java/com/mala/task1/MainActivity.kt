@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.widget.Toast
 import com.mala.task1.databinding.ActivityMainBinding
 
+enum class  NAMES(){
+    FOOTBALL,BASKETBALL,VALLEYbBALL,FEMALE,MALE
+}
 class MainActivity : AppCompatActivity() {
     fun checkfix(check: String): String {
         if (check == "Female") {
@@ -26,32 +29,29 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val userName = binding.usernameEd.text
-
             lateinit var checkGender: String
             var checkSports: String=""
             // check of sport
             binding.Football.setOnCheckedChangeListener { buttonView, isChecked ->
                 if (isChecked)
-                    checkSports += "Football \n"
+                    checkSports += "${NAMES.FOOTBALL.name} \n"
             }
             binding.basketball.setOnCheckedChangeListener { buttonView, isChecked ->
                 if (isChecked)
-                    checkSports += "basketball \n"
+                    checkSports += "${NAMES.BASKETBALL.name} \n"
             }
             binding.valleyball.setOnCheckedChangeListener { buttonView, isChecked ->
                 if (isChecked)
-                    checkSports += "valleyball"
+                    checkSports += "${NAMES.VALLEYbBALL.name}"
             }
             binding.Female.setOnCheckedChangeListener { buttonView, isChecked ->
                 if (isChecked)
-                    checkGender = "Female"
+                    checkGender = "${NAMES.FEMALE.name}"
             }
             binding.Male.setOnCheckedChangeListener { buttonView, isChecked ->
                 if (isChecked)
-                    checkGender = "male"
+                    checkGender = "${NAMES.MALE.name}"
             }
-
-
 
 
             binding.btnLog.setOnClickListener {
