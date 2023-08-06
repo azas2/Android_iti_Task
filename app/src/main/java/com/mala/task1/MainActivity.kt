@@ -1,12 +1,15 @@
 package com.mala.task1
-
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.mala.task1.databinding.ActivityMainBinding
 
-enum class  NAMES(){
+enum class NAMES(){
     FOOTBALL,BASKETBALL,VALLEYbBALL,FEMALE,MALE
 }
 class MainActivity : AppCompatActivity() {
@@ -35,6 +38,9 @@ class MainActivity : AppCompatActivity() {
         lateinit var checkGender: String
         var checkSports: String = ""
 
+
+
+
         // check of sport
         binding.Football.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked)
@@ -60,13 +66,44 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnLog.setOnClickListener {
             val intent =Intent(this,SecondActivity::class.java)
-           startActivityForResult(intent,REQUST_CODE)
-           val sportChose = giveSports(checkSports)
+            startActivityForResult(intent,REQUST_CODE)
+            val sportChose = giveSports(checkSports)
             val toShow = "Welcome ${checkfix(checkGender)} ${userName.toString()}, your favorite sports are:\n$sportChose and your gender is $checkGender"
             Toast.makeText(this, toShow, Toast.LENGTH_LONG).show()
         }
 
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_activity_main,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId){
+            R.id.exist ->{
+                val dialog:AlertDialog.Builder=AlertDialog.Builder(this)
+                dialog.setTitle(getString(R.string.to_exit))
+                dialog.setCancelable(false)
+                dialog.setPositiveButton("ok",DialogInterface.OnClickListener { dialog, which ->
+                    finish()
+                })
+                dialog.setNegativeButton("No",DialogInterface.OnClickListener { dialog, which ->
+                })
+                val alertDialog: AlertDialog = dialog.create()
+                alertDialog.show()
+                true
+            }
+            R.id.menu_show_Second -> {
+                startActivity(Intent(this,SecondActivity::class.java))
+                true
+            }
+            else ->
+                super.onOptionsItemSelected(item)
+
+        }
+    }
+
     // RESULT BACK FROM SecondActivity
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
