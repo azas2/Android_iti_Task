@@ -16,7 +16,6 @@
     <string name="exit">exit</string>
     <string name="menu_show_second">Second Page</string>
     <string name="to_exit">are you sure you want to close App ?</string>
-    <string name="okay_pop">Ok</string>
-    <string name="No_pop">No</string>
+
 
 </resources>

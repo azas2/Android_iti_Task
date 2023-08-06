@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity() {
                 val dialog:AlertDialog.Builder=AlertDialog.Builder(this)
                 dialog.setTitle(getString(R.string.to_exit))
                 dialog.setCancelable(false)
-                dialog.setPositiveButton("ok",DialogInterface.OnClickListener { dialog, which ->
+                dialog.setPositiveButton("Ok",DialogInterface.OnClickListener { dialog, which ->
                     finish()
                 })
                 dialog.setNegativeButton("No",DialogInterface.OnClickListener { dialog, which ->
