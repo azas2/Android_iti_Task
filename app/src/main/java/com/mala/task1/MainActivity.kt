@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         }
         return sportsString.toString()
     }
-    val REQUST_CODE=1
+ 
     lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,9 +66,9 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnLog.setOnClickListener {
             val intent =Intent(this,SecondActivity::class.java)
-            startActivityForResult(intent,REQUST_CODE)
+            startActivity(intent)
             val sportChose = giveSports(checkSports)
-            val toShow = "Welcome ${checkfix(checkGender)} ${userName.toString()}, your favorite sports are:\n$sportChose and your gender is $checkGender"
+         var toShow = "Welcome ${checkfix(checkGender)} ${userName.toString()}, your favorite sports are:\n$sportChose and your gender is $checkGender"
             Toast.makeText(this, toShow, Toast.LENGTH_LONG).show()
         }
 
@@ -104,15 +104,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // RESULT BACK FROM SecondActivity
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUST_CODE) {
-            if (resultCode == 1) {
-                Toast.makeText(this, "login by Google", Toast.LENGTH_LONG).show()
-            } else {
-                Toast.makeText(this, "login by Facebook", Toast.LENGTH_LONG).show()
-            }
-        }
-    }
+
+
 }

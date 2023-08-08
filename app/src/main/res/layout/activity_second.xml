@@ -6,37 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".SecondActivity"
     android:background="#9AECDB">
-    <RadioGroup
-        android:id="@+id/SecondAC_Radio_Group"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="150dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-        <RadioButton
-            android:id="@+id/SecondAC_Google"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/google"
-            android:layout_marginEnd="20dp"/>
-        <RadioButton
-            android:id="@+id/SecondAC_Facebook"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/facebook"/>
-    </RadioGroup>
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/SecondAC_btn_Login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:text="@string/LOGIN"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/btn_shape"
-        app:layout_constraintTop_toBottomOf="@+id/SecondAC_Radio_Group"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/Recucler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_coustem_post"
+        tools:itemCount="10"
 
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
