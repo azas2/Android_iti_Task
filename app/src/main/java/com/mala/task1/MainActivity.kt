@@ -1,6 +1,8 @@
 package com.mala.task1
+
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -30,6 +32,8 @@ class MainActivity : AppCompatActivity() {
     }
  
     lateinit var binding: ActivityMainBinding
+    lateinit var pref :SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -37,10 +41,6 @@ class MainActivity : AppCompatActivity() {
         val userName = binding.usernameEd.text
         lateinit var checkGender: String
         var checkSports: String = ""
-
-
-
-
         // check of sport
         binding.Football.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked)
@@ -70,7 +70,16 @@ class MainActivity : AppCompatActivity() {
             val sportChose = giveSports(checkSports)
          var toShow = "Welcome ${checkfix(checkGender)} ${userName.toString()}, your favorite sports are:\n$sportChose and your gender is $checkGender"
             Toast.makeText(this, toShow, Toast.LENGTH_LONG).show()
+
+            pref=application.applicationContext.getSharedPreferences("MySharedPreferences", MODE_PRIVATE)
+            val editor=pref.edit()
+            editor.putString("user ${binding.usernameEd}",binding.usernameEd.text.toString())
+            editor.putString("Password ${binding.passEd}",binding.passEd.text.toString())
+            editor.putBoolean("LogIn",true)
+            editor.commit()
         }
+
+
 
     }
 

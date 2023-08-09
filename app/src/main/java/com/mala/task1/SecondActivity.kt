@@ -1,13 +1,20 @@
 package com.mala.task1
 
+
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.mala.task1.databinding.ActivityMainBinding
 import com.mala.task1.databinding.ActivitySecondBinding
 
 class SecondActivity : AppCompatActivity(),CoustemOnClickLisner {
     lateinit var binding: ActivitySecondBinding
+    lateinit var binding2: ActivityMainBinding
     lateinit var UserAdapter: CoustemAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +32,31 @@ class SecondActivity : AppCompatActivity(),CoustemOnClickLisner {
 
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_activity_second,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.login -> {
+                val pref=applicationContext.getSharedPreferences("MySharedPreferences",MODE_PRIVATE)
+                val editor=pref.edit()
+                editor.remove("user ${binding2.usernameEd}")
+                editor.remove("Password ${binding2.passEd}")
+                editor.putBoolean("LogIn",false)
+                editor.commit()
+              startActivity(Intent(this,MainActivity::class.java))
+                finish()
+                true
+            }
+            else->{
+                Toast.makeText(this,"Error",Toast.LENGTH_LONG).show()
+             true
+            }
+        }
+    }
+    @SuppressLint("SuspiciousIndentation")
     override fun onClickItem(post: Post, position: Int) {
       val intent= Intent(this,ThreeActivity::class.java)
         intent.putExtra("name",post.name)
