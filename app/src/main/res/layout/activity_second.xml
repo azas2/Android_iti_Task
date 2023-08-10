@@ -6,12 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".SecondActivity"
     android:background="#9AECDB">
+    <TextView
+        android:id="@+id/welcome"
+        android:layout_width="0dp"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:layout_height="wrap_content"
+        android:text="Welcome"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@id/Recucler"
+        android:padding="15dp"
+        app:layout_constraintBottom_toTopOf="@id/Recucler"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/Recucler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/item_coustem_post"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/welcome"
         tools:itemCount="10"
-
-        />
+        tools:layout_editor_absoluteX="-70dp"
+        tools:listitem="@layout/item_coustem_post" />
 </androidx.constraintlayout.widget.ConstraintLayout>
