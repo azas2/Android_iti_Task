@@ -13,15 +13,11 @@ class ThreeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding=ActivityThreeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-     intent.getStringExtra("name")
-        // convert image to drawable
-       val imageUrl:String= intent.extras?.getString("image")?:""
-        println("imagurl:$imageUrl")
-        if(imageUrl.isNotEmpty()){
 
-            Picasso.get().load(imageUrl).into(binding.threeImage)
-        }
-       binding.DateThree.text= intent.getStringExtra("date")
-        binding.commentThree.text=intent.getStringExtra("comment")
+      binding.Postid.text=intent.extras?.getInt("postId",0).toString()
+      binding.commentIdTv.text=  intent.extras?.getInt("commentId",0).toString()
+       binding.email.text= intent.extras?.getString("email","error")
+       binding.comment.text= intent.extras?.getString("name", "error")
+        binding.commentTv.text=intent.extras?.getString("body","error")
     }
 }

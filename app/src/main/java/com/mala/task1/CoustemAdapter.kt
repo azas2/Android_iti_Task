@@ -4,10 +4,10 @@ import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import com.mala.task1.databinding.ItemCoustemPostBinding
-import com.mala.task1.model.User
-import com.squareup.picasso.Picasso
 
-class CoustemAdapter(var Userlist: List<User>):RecyclerView.Adapter<CoustemAdapter.ViewHolder>(){
+import com.mala.task1.model.Post
+
+class CoustemAdapter(var postsList: ArrayList<Post>):RecyclerView.Adapter<CoustemAdapter.ViewHolder>(){
 
     inner class ViewHolder(val binding:ItemCoustemPostBinding):RecyclerView.ViewHolder(binding.root)
 
@@ -17,17 +17,22 @@ class CoustemAdapter(var Userlist: List<User>):RecyclerView.Adapter<CoustemAdapt
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int){
-        holder.binding.name.text="${Userlist[position].firstname} ${Userlist[position].lastName}"
-        holder.binding.Date.text="${Userlist[position].id}"
-        holder.binding.comment.text=Userlist[position].email
+        holder.binding.name.text="UserId ${postsList[position].userid}"
+        holder.binding.Date.text="PostId ${postsList[position].id}"
+        holder.binding.titleeee.text=postsList[position].title
+        holder.binding.comment2.text=postsList[position].body
+  /*
         if(Userlist[position].avatar.isNotEmpty()){
             Picasso.get().load(Userlist[position].avatar).into(holder.binding.image)
         }
-
+*/
 
     }
+
 
     override fun getItemCount(): Int {
-     return Userlist.size
+     return postsList.size
     }
+
+
 }
