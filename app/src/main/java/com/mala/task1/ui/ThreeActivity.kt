@@ -1,11 +1,8 @@
-package com.mala.task1
+package com.mala.task1.ui
 
-import android.content.Intent
-import android.graphics.drawable.Icon
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.mala.task1.databinding.ActivityThreeBinding
-import com.squareup.picasso.Picasso
 
 class ThreeActivity : AppCompatActivity() {
     lateinit var binding:ActivityThreeBinding

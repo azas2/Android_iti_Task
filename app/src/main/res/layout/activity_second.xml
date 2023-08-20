@@ -4,15 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SecondActivity"
+    tools:context=".ui.Second.SecondActivity"
     android:background="#9AECDB">
 
     <EditText
         android:id="@+id/btn"
-        android:layout_width="130dp"
+        android:layout_width="0dp"
         android:layout_height="30dp"
+        android:hint="enter post id"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="50sp"
         android:inputType="number"
         android:backgroundTint="@color/black"
         android:layout_marginTop="30dp"
@@ -38,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/btn"
-        tools:itemCount="10"
+        tools:itemCount="20"
         android:layout_marginTop="50dp"
         tools:layout_editor_absoluteX="-70dp"
         tools:listitem="@layout/item_coustem_post"

@@ -1,6 +1,8 @@
-package com.mala.task1.model
+package com.mala.task1.Core.model.respons
 
 import com.google.gson.annotations.SerializedName
+import com.mala.task1.Core.model.Support
+import com.mala.task1.Core.model.User
 
 data class ResponseUsersList (
     @SerializedName("page")

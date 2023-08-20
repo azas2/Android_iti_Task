@@ -1,4 +1,4 @@
-package com.mala.task1
+package com.mala.task1.ui.login
 
 import android.annotation.SuppressLint
 import android.content.DialogInterface
@@ -10,7 +10,14 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.lifecycleScope
+import com.mala.task1.Core.data_source.remote.ApisInterfac
+import com.mala.task1.Core.data_source.remote.RetrofitClient
+import com.mala.task1.R
 import com.mala.task1.databinding.ActivityMainBinding
+import com.mala.task1.Core.model.body.LoginBack
+import com.mala.task1.ui.Second.SecondActivity
+import org.json.JSONObject
 
 enum class NAMES(){
     FOOTBALL,BASKETBALL,VALLEYbBALL,FEMALE,MALE
@@ -34,12 +41,21 @@ class MainActivity : AppCompatActivity() {
  
     lateinit var binding: ActivityMainBinding
     lateinit var pref :SharedPreferences
-
+    lateinit var retrofit: ApisInterfac
+    lateinit var viewModel: LoginViewModel
     @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        viewModel=LoginViewModel()
+
+
+        viewModel.logindata.observe(this){
+            Toast.makeText(this,"welcom ${it.body()?.firstname}",Toast.LENGTH_LONG)
+        }
+
         val userName = binding.usernameEd.text
         lateinit var checkGender: String
         var checkSports: String = ""
@@ -67,22 +83,39 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.btnLog.setOnClickListener {
-            val intent =Intent(this,SecondActivity::class.java)
-            startActivity(intent)
+
+
+           viewModel.startLogin(binding.usernameEd.text.toString(),binding.passEd.text.toString(),this)
+
+            /*
+            lifecycleScope.launchWhenCreated {
+                // here take username and password
+                val respon=retrofit.login(LoginBack(binding.usernameEd.text.toString(),binding.passEd.text.toString()))
+                if(respon.isSuccessful){
+                    moveToNextScreen()
+                }
+                else{
+                    val jsonError= JSONObject(respon.errorBody()?.string())
+                    Toast.makeText(this@MainActivity,jsonError.getString("message"),Toast.LENGTH_LONG).show()
+                }
+            }
+
+             */
+            /*
             val sportChose = giveSports(checkSports)
          var toShow = "Welcome ${checkfix(checkGender)} ${userName.toString()}, your favorite sports are:\n$sportChose and your gender is $checkGender"
             Toast.makeText(this, toShow, Toast.LENGTH_LONG).show()
+*/
 
-            pref=application.applicationContext.getSharedPreferences("MySharedPreferences", MODE_PRIVATE)
-            val editor=pref.edit()
-            editor.putString("user ${binding.usernameEd}",binding.usernameEd.text.toString())
-            editor.putString("Password ${binding.passEd}",binding.passEd.text.toString())
-            editor.putBoolean("LogIn",true)
-            editor.commit()
         }
 
 
 
+    }
+    fun moveToNextScreen(){
+        val intent =Intent(this, SecondActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -106,7 +139,7 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.menu_show_Second -> {
-                startActivity(Intent(this,SecondActivity::class.java))
+                startActivity(Intent(this, SecondActivity::class.java))
                 true
             }
             else ->

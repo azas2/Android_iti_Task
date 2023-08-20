@@ -1,4 +1,4 @@
-package com.mala.task1
+package com.mala.task1.ui.Second
 
 
 import android.content.Intent
@@ -10,24 +10,37 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mala.task1.databinding.ActivityMainBinding
+import com.mala.task1.CoustemAdapter
+import com.mala.task1.CoustemOnClickLisner
+import com.mala.task1.R
 import com.mala.task1.databinding.ActivitySecondBinding
-import com.mala.task1.model.ApisInterfac
-import com.mala.task1.model.RetrofitClient
-import com.mala.task1.model.User
-import com.mala.task1.model.Post
-import kotlinx.coroutines.launch
+import com.mala.task1.Core.data_source.remote.RetrofitClient
+import com.mala.task1.Core.model.Post
+import com.mala.task1.Core.rep.PostRepo
+import com.mala.task1.ui.ThreeActivity
+import com.mala.task1.ui.login.MainActivity
+import retrofit2.Response
 
 
-class SecondActivity : AppCompatActivity() ,CoustemOnClickLisner{
+class SecondActivity : AppCompatActivity() , CoustemOnClickLisner {
     lateinit var binding: ActivitySecondBinding
     lateinit var postsAdapter: CoustemAdapter
     lateinit var pref: SharedPreferences
-    var retrofit = RetrofitClient.getInstance()
+   val viewModel=SecondViewModel(PostRepo())
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySecondBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        viewModel.logindata.observe(this){
+            if(it.isSuccessful){
+                postsAdapter = CoustemAdapter(it.body()?: ArrayList(),this@SecondActivity)
+                binding.Recucler.layoutManager = LinearLayoutManager(this@SecondActivity)
+                binding.Recucler.adapter = postsAdapter
+            }
+        }
+
+
         /*
         val Posts= arrayListOf(User("ahmed alaa","https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436200.jpg?w=740&t=st=1691499853~exp=1691500453~hmac=118b4391800e19b85254897e999ed6909896258242aadb652a058789c870f0cb","30 OCT2022","dont play with gradle"),
             User("MALA","https://img.freepik.com/free-psd/3d-illustration-person-with-glasses_23-2149436190.jpg?w=740&t=st=1691500894~exp=1691501494~hmac=dbff5cc81d21df7c9e931976d4fcaac0aa6882841be0a0688170a67cc434f7dc","30 NOV2022","dont play with gradle"),
@@ -37,20 +50,10 @@ class SecondActivity : AppCompatActivity() ,CoustemOnClickLisner{
                                     // her told this is var
 */
        binding.btnClick.setOnClickListener {
-           lifecycleScope.launchWhenCreated  {
-               var respon = retrofit.getPostByUser((binding.btn.text.toString()).toInt())
-               if (respon.isSuccessful) {
-                   postsAdapter = CoustemAdapter(respon.body()?: ArrayList())
-                   binding.Recucler.layoutManager = LinearLayoutManager(this@SecondActivity)
-                   binding.Recucler.adapter = postsAdapter
-
-               }
-               else {
-                   Toast.makeText(this@SecondActivity, "Error", Toast.LENGTH_SHORT).show()
-               }
-           }
+           viewModel.getPostById(binding.btn.text.toString().toInt())
 
        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -74,27 +77,33 @@ class SecondActivity : AppCompatActivity() ,CoustemOnClickLisner{
             }
         }
     }
+
   override fun onClickItem(post: Post, position: Int) {
+     /*
+            lifecycleScope.launchWhenCreated {
 
-      lifecycleScope.launchWhenCreated {
-          val respone = retrofit.getComment(post.id)
+               val respone = retrofit.getComment(post.id)
 
-          if (respone.isSuccessful) {
-              var comment = respone.body()?.get(0)
+                if (respone.isSuccessful) {
+                    var comment = respone.body()?.get(0)
 
-              val intent = Intent(this@SecondActivity, ThreeActivity::class.java)
-              intent.putExtra("postId",comment?.postId)
-              intent.putExtra("commentId",comment?.id)
-              intent.putExtra("email", comment?.email)
-              intent.putExtra("name", comment?.name)
-              intent.putExtra("body", comment?.body)
-              startActivity(intent)
+                    val intent = Intent(this@SecondActivity, ThreeActivity::class.java)
+                    intent.putExtra("postId",comment?.postId)
+                    intent.putExtra("commentId",comment?.id)
+                    intent.putExtra("email", comment?.email)
+                    intent.putExtra("name", comment?.name)
+                    intent.putExtra("body", comment?.body)
+                    startActivity(intent)
 
 
-          } else {
-              Toast.makeText(this@SecondActivity, "Error", Toast.LENGTH_SHORT).show()
-          }
+                } else {
+                    Toast.makeText(this@SecondActivity, "Error", Toast.LENGTH_SHORT).show()
+                }
+
+            */
       }
+
+
   }
-}
+
 

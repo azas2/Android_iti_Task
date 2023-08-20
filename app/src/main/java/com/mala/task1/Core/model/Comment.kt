@@ -1,4 +1,4 @@
-package com.mala.task1.model
+package com.mala.task1.Core.model
 
 import com.google.gson.annotations.SerializedName
 

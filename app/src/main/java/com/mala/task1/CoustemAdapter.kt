@@ -5,9 +5,9 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import com.mala.task1.databinding.ItemCoustemPostBinding
 
-import com.mala.task1.model.Post
+import com.mala.task1.Core.model.Post
 
-class CoustemAdapter(var postsList: ArrayList<Post>):RecyclerView.Adapter<CoustemAdapter.ViewHolder>(){
+class CoustemAdapter(var postsList: ArrayList<Post>, var lisner:CoustemOnClickLisner):RecyclerView.Adapter<CoustemAdapter.ViewHolder>(){
 
     inner class ViewHolder(val binding:ItemCoustemPostBinding):RecyclerView.ViewHolder(binding.root)
 
@@ -25,7 +25,11 @@ class CoustemAdapter(var postsList: ArrayList<Post>):RecyclerView.Adapter<Couste
         if(Userlist[position].avatar.isNotEmpty()){
             Picasso.get().load(Userlist[position].avatar).into(holder.binding.image)
         }
+
 */
+        holder.binding.btnMore.setOnClickListener {
+            lisner.onClickItem(postsList[position] ,position)
+        }
 
     }
 
